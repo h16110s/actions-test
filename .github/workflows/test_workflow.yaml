@@ -1,0 +1,22 @@
+name: test_workflow
+
+on: 
+  workflow_dispatch:
+    inputs:
+      env:
+        type: choice
+        description: Deploy target
+        options:
+          - mock
+          - staging
+          - production
+
+jobs:
+  build_ios:
+    runs-on: macos-13
+    defaults:
+      run:
+        working-directory: user
+    steps:
+      - name: Checkout ${{ github.ref_name }}
+        uses: actions/checkout@v3
