@@ -13,12 +13,8 @@ on:
 
 jobs:
   build_ios:
+    name: Build iOS (${{ github.ref_name }})
     runs-on: macos-13
-    strategy:
-      matrix:
-        branch:
-          - ${{ github.ref_name }}
-      fail-fast: false
     defaults:
       run:
         working-directory: user
