@@ -14,9 +14,14 @@ on:
 jobs:
   build_ios:
     runs-on: macos-13
+    strategy:
+      matrix:
+        branch:
+          - ${{ github.ref_name }}
+      fail-fast: false
     defaults:
       run:
         working-directory: user
     steps:
-      - name: Checkout ${{ github.ref_name }}
+      - name: Checkout (${{ github.ref_name }})
         uses: actions/checkout@v3
