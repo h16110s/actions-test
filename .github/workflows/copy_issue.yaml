@@ -1,0 +1,25 @@
+name: Copy Linked Issue
+
+on:
+  issues:
+    types: [opened]
+
+jobs:
+  copy-issue:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v2
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14'
+
+    - name: Install dependencies
+      run: npm install @actions/github @actions/core
+
+    - name: Copy linked issue
+      run: node copy-issue.js
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

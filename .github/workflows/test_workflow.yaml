@@ -13,10 +13,11 @@ on:
 
 jobs:
   build_ios:
+    name: Build iOS [${{ github.ref_name }}] (${{ github.run_number }})
     runs-on: macos-13
     defaults:
       run:
         working-directory: user
     steps:
-      - name: Checkout ${{ github.ref_name }}
+      - name: Checkout (${{ github.ref_name }})
         uses: actions/checkout@v3
