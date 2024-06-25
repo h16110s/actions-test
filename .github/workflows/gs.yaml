@@ -1,0 +1,20 @@
+name: GhostScript
+
+on:
+  workflow_dispatch:
+
+jobs:
+  compress-pdf:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
+
+      - name: install GhostScript
+        run: |
+          apt-get update
+          apt-get install ghostscript
+
+      - name: version
+        run: |
+          gs --version
