@@ -24,7 +24,8 @@ jobs:
           mkdir compress
           files=(`ls -1 ./download`)
           for file_name in "${files[@]}"; do
-            gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/ebook -dNOPAUSE -dQUIET -dBATCH -sOutputFile=./compress/${file_name} ${file_name}
+            echo ${file_NAME}
+            gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/ebook -dNOPAUSE -dQUIET -dBATCH -sOutputFile=./compress/${file_name} ./download/${file_name}
           done
 
       - uses: actions/upload-artifact@v4
