@@ -12,8 +12,8 @@ jobs:
 
       - name: install GhostScript
         run: |
-          apt-get update
-          apt-get install ghostscript
+          sudo apt-get update
+          sudo apt-get install ghostscript
 
       - name: version
         run: |
