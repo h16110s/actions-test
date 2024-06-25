@@ -21,7 +21,15 @@ jobs:
 
       - name: compress
         run: | 
+          mkdir compress
           files=(`ls -1 ./download`)
           for file_name in "${files[@]}"; do
-            gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/ebook -dNOPAUSE -dQUIET -dBATCH -sOutputFile=${file_name} ${file_name}
+            gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/ebook -dNOPAUSE -dQUIET -dBATCH -sOutputFile=./compress/${file_name} ${file_name}
           done
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: compress
+          path: compress/
+          retention-days: 30
