@@ -18,3 +18,10 @@ jobs:
       - name: version
         run: |
           gs --version
+
+      - name: compress
+        run: | 
+          files=(`ls -1 ./download`)
+          for file_name in "${files[@]}"; do
+            gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/ebook -dNOPAUSE -dQUIET -dBATCH -sOutputFile=${file_name} ${file_name}
+          done
