@@ -1,0 +1,32 @@
+name: release
+
+on:
+  workflow_dispatch:
+
+env:
+  BUILD_NUMBER_OFFSET: 10
+
+
+jobs:
+  release: 
+    name: release
+    runs-on: ubuntu-latest
+    # needs: [ios, android]
+
+    steps:
+      - name: Get the current build number
+        id: build_number
+        run: echo number="$((${{github.run_number}} + ${{env.BUILD_NUMBER_OFFSET}}))" >> $GITHUB_OUTPUT
+      
+      - name: Build
+        run: echo ${{ github.sha }} > Release.txt
+
+      - name: Test
+        run: cat Release.txt
+
+      - name: Release
+        uses: softprops/action-gh-release@v2
+        with:
+          draft: true
+          tag_name: ${{ steps.build_number.outputs.number }}
+          files: Release.txt
