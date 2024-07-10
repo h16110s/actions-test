@@ -8,13 +8,29 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: install GhostScript
         run: |
-          apt-get update
-          apt-get install ghostscript
+          sudo apt-get update
+          sudo apt-get install ghostscript
 
       - name: version
         run: |
           gs --version
+
+      - name: compress
+        run: | 
+          mkdir compress
+          files=(`ls -1 ./download`)
+          for file_name in "${files[@]}"; do
+            echo ${file_NAME}
+            gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/ebook -dNOPAUSE -dQUIET -dBATCH -sOutputFile=./compress/${file_name} ./download/${file_name}
+          done
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: compress
+          path: compress/
+          retention-days: 30
