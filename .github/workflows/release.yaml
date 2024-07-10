@@ -30,6 +30,5 @@ jobs:
       - name: Release
         uses: softprops/action-gh-release@v2
         with:
-          prerelease: true
           tag_name: staging-${{ steps.build_number.outputs.number }}
           files: Release.txt
